@@ -1,7 +1,7 @@
 /**
  * Assignment 1: priority queue of processes
  * @file readyqueue.h
- * @author ??? (TODO: your name)
+ * @author Ashley Flores
  * @brief ReadyQueue is a queue of PCB's that are in the READY state to be scheduled to run.
  * It should be a priority queue such that the process with the highest priority can be selected next.
  * @version 0.1
@@ -20,6 +20,10 @@ class ReadyQueue {
 private:
     // TODO: add your private member variables here
     // choose a data structure for the ReadyQueue. No STL class is allowed.
+//fixed size array pf PCB pointers, sorted by descending priority
+static const int MAX_READYQUEUE_SIZE = 100; 
+PCB* queue[MAX_RAEDYQUEUE_SIZE];
+int count;
 
 public:
     /**
@@ -60,5 +64,6 @@ public:
       * @brief Display the PCBs in the queue.
       */
 	void displayAll();
+
 
 };
