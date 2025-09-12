@@ -1,7 +1,7 @@
 /**
  * Assignment 1: priority queue of processes
  * @file pcbtable.h
- * @author ??? (TODO: your name)
+ * @author Ashley Flores
  * @brief This is the header file for the PCBTable class, an array(list) of all PCB elements in the system..
  * @version 0.1
  */
@@ -20,6 +20,7 @@ private:
     // TODO: add your private member variables here
     // choose a data structure for the PCBTable. 
     // You can use an array of PCB pointers, e.g. vector<PCB *>. 
+PCB* table[MAX_SIZE]; // where MAX_SIZE is a constant integer
 
 public:
     /**
@@ -72,3 +73,4 @@ public:
         addPCB(pcb, idx);
     }
 };
+
