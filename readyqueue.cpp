@@ -6,12 +6,17 @@ using namespace std;
 //You must complete the all parts marked as "TODO". Delete "TODO" after you are done.
 // Remember to add sufficient comments to your code
 
+const int MAX_READYQUEUE_SIZE = 100; 
 
 /**
  * @brief Constructor for the ReadyQueue class.
  */
  ReadyQueue::ReadyQueue()  {
      //TODO: add your code here
+  //initialize queue
+  count = 0;
+  for(int i = 1; i < MAX_READYQUEUE_SIZE; i++)
+   queue[i] = nullptr;
  }
 
 /**
@@ -19,6 +24,12 @@ using namespace std;
 */
 ReadyQueue::~ReadyQueue() {
     //TODO: add your code to release dynamically allocate memory
+ //delete any PCBs in queue
+ for(int i = 0; i < count; i++){
+  delete queue[i];
+  queue[i] = nullptr;
+ }
+ count = 0;
 }
 
 /**
@@ -29,6 +40,18 @@ ReadyQueue::~ReadyQueue() {
 void ReadyQueue::addPCB(PCB *pcbPtr) {
     //TODO: add your code here
     // When adding a PCB to the queue, you must change its state to READY.
+ if(pcbPtr == nullptr || count >= MAX_READYQUEUE_SIZE)
+  return;
+ pcb -> setState(ProcState::Ready);
+
+ //insert in sorted order (descending priority)
+ int i = count - 1;
+ while( i>= 0 && queue[i] -> getProority() < pcbPtr -> getPriority ()){
+  queue[i + 1] = queue[i];
+  i--;
+ }
+ queue[i + 1] = pcbPtr;
+ count++;
 }
 
 /**
@@ -39,6 +62,18 @@ void ReadyQueue::addPCB(PCB *pcbPtr) {
 PCB* ReadyQueue::removePCB() {
     //TODO: add your code here
     // When removing a PCB from the queue, you must change its state to RUNNING.
+ if(count == 0)
+  return nullptr;
+ //queue[0] always has highest priority
+ PCB* pcb = queue[0];
+ pcb -> setState(ProcState::RUNNING);
+
+ //shift elements left
+ for(int i = 1; i < count; i++)
+  queue[i - 1] = queue[i];
+ queue[count - 1] = nullptr;
+ count --;
+ return pcb;
 }
 
 /**
@@ -48,6 +83,7 @@ PCB* ReadyQueue::removePCB() {
  */
 int ReadyQueue::size() {
     //TODO: add your code here
+ return count;
 }
 
 /**
@@ -55,4 +91,6 @@ int ReadyQueue::size() {
  */
 void ReadyQueue::displayAll() {
     //TODO: add your code here
+for(int i = 0; i < count; i++)
+ queue[i] -> display();
 }
