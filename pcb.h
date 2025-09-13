@@ -82,7 +82,6 @@ public:
      * @param state
      */
     void setState(ProcState state) {
-        // TODO: add your code here
 		//set the PCB's state to the provided value
 		this -> state = state; 
     }
@@ -92,7 +91,6 @@ public:
      * @param priority
      */
     void setPriority(unsigned int priority) {
-        // TODO: add your code here
 		//set the PCB's priority to the provided value
 		if(priority >= 1 && priority <=50) {
 			this -> priority = priority;
